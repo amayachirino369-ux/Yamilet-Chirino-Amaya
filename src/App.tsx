@@ -17,7 +17,11 @@ import {
   CheckCircle2,
   Rocket,
   Zap,
-  Bot
+  Bot,
+  Facebook,
+  Github,
+  Video,
+  UserCheck
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -36,19 +40,29 @@ const Navbar = () => {
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="flex items-center gap-2"
+          className="flex items-center gap-3 cursor-pointer group"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
-          <div className="w-10 h-10 rounded-full gold-bg-gradient flex items-center justify-center shadow-lg">
-            <Sparkles className="text-white w-5 h-5" />
+          <div className="w-12 h-12 rounded-full overflow-hidden shadow-xl border-2 border-gold/30 transition-transform group-hover:scale-110 duration-500">
+            <img 
+              src="/logo.png" 
+              alt="Amaya Con IA Logo" 
+              className="w-full h-full object-cover"
+              referrerPolicy="no-referrer"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = "https://images.unsplash.com/photo-1620712943543-bcc4628c6bb5?q=80&w=100&h=100&auto=format&fit=crop";
+              }}
+            />
           </div>
           <span className="font-serif text-2xl font-semibold tracking-tight">Amaya <span className="text-gold">Con IA</span></span>
         </motion.div>
         
         <div className="hidden md:flex items-center gap-10 text-[10px] uppercase tracking-[0.25em] font-bold">
-          {["Inicio", "Cursos", "Sobre Mí", "Contacto"].map((item, i) => (
+          {["Inicio", "Cursos", "IA Media", "Sobre Mí", "Contacto"].map((item, i) => (
             <motion.a
               key={item}
-              href={`#${item.toLowerCase().replace(" ", "-")}`}
+              href={`#${item.toLowerCase().replace(" ", "-").replace("í", "i")}`}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
@@ -60,13 +74,14 @@ const Navbar = () => {
           ))}
         </div>
 
-        <motion.button
+        <motion.a
+          href="#contacto"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           className="px-6 py-2.5 border border-gold text-gold text-[10px] uppercase tracking-widest font-bold hover:bg-gold hover:text-white transition-all duration-300 rounded-full"
         >
           Contactar Ahora
-        </motion.button>
+        </motion.a>
       </div>
     </nav>
   );
@@ -77,9 +92,9 @@ const Hero = () => {
     { name: "ChatGPT", color: "text-emerald-600" },
     { name: "Gemini", color: "text-blue-500" },
     { name: "Claude", color: "text-orange-600" },
-    { name: "Grok", color: "text-ink" },
-    { name: "Perplexity", color: "text-cyan-600" },
-    { name: "Google AI", color: "text-red-500" },
+    { name: "HeyGen", color: "text-purple-600" },
+    { name: "Sora", color: "text-pink-600" },
+    { name: "Runway", color: "text-gray-900" },
     { name: "Genspark", color: "text-indigo-500" }
   ];
 
@@ -91,8 +106,8 @@ const Hero = () => {
           initial={{ scale: 1.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 0.3 }}
           transition={{ duration: 2 }}
-          src="https://picsum.photos/seed/luxury-ai-tech/1920/1080"
-          alt="Background"
+          src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop"
+          alt="AI Background"
           className="w-full h-full object-cover"
           referrerPolicy="no-referrer"
         />
@@ -119,22 +134,21 @@ const Hero = () => {
           </div>
 
           <h1 className="text-6xl md:text-8xl font-serif font-light leading-tight mb-8">
-            Domina la <span className="italic gold-gradient font-medium text-glow-gold">Inteligencia</span> <br />
-            Artificial con <span className="font-medium">Elegancia</span>
+            Domina la <span className="italic gold-gradient font-medium text-glow-gold">Productividad Digital</span> <br />
+            con <span className="font-medium text-ink">Inteligencia Artificial</span>
           </h1>
           
           <p className="text-lg text-ink/70 max-w-3xl mx-auto mb-12 font-light leading-relaxed">
-            Soy <span className="font-bold text-ink">Yamilet Chirino Amaya</span>, tu mentora en la nueva era digital. 
-            Te enseño a liderar con las herramientas de IA más potentes para transformar tu productividad y visión empresarial.
+            Soy <span className="font-bold text-ink">Yamilet Chirino Amaya</span>. Te enseño a optimizar la gestión administrativa de tu empresa y a crear contenido de alto impacto para tus redes sociales utilizando las herramientas de IA más avanzadas del mercado.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <a href="#cursos" className="px-10 py-4 gold-bg-gradient text-white rounded-full shadow-xl shadow-gold/20 flex items-center gap-3 group hover:scale-105 transition-transform duration-300">
-              <span className="uppercase tracking-widest text-sm font-bold">Descubre mis Cursos</span>
+              <span className="uppercase tracking-widest text-sm font-bold">Ver Servicios</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
             <a href="#contacto" className="px-10 py-4 border border-gold/30 rounded-full hover:bg-gold hover:text-white transition-all duration-300 uppercase tracking-widest text-sm font-bold">
-              Solicitar Presupuesto
+              Solicitar Demo
             </a>
           </div>
         </motion.div>
@@ -142,9 +156,9 @@ const Hero = () => {
         <div className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
           {[
             { label: "Alumnos Formados", value: "500+" },
-            { label: "Empresas Capacitadas", value: "50+" },
-            { label: "Satisfacción", value: "100%" },
-            { label: "Herramientas IA", value: "15+" }
+            { label: "Proyectos IA", value: "120+" },
+            { label: "Eficiencia", value: "10X" },
+            { label: "Herramientas IA", value: "25+" }
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -155,6 +169,79 @@ const Hero = () => {
             >
               <h4 className="text-3xl font-serif text-gold font-bold mb-1">{stat.value}</h4>
               <p className="text-[10px] uppercase tracking-widest font-bold opacity-50">{stat.label}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const AIVideoShowcase = () => {
+  const mediaItems = [
+    {
+      title: "Gestión Administrativa",
+      description: "Automatiza tareas repetitivas y optimiza tus procesos empresariales con herramientas de IA.",
+      icon: UserCheck,
+      image: "https://images.unsplash.com/photo-1454165833767-027ffea9e778?q=80&w=2070&auto=format&fit=crop"
+    },
+    {
+      title: "Prompts de Imagen y Video",
+      description: "Aprende a comunicarte con la IA para generar visuales potentes y videos dinámicos para tus redes.",
+      icon: Video,
+      image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop"
+    },
+    {
+      title: "Estrategia para Redes",
+      description: "Escala tu marca personal o empresarial con contenido inteligente y automatizado.",
+      icon: Zap,
+      image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?q=80&w=1974&auto=format&fit=crop"
+    }
+  ];
+
+  return (
+    <section id="ia-media" className="py-32 bg-ink text-beige">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col lg:flex-row justify-between items-end gap-8 mb-20">
+          <div className="lg:w-2/3">
+            <span className="text-gold uppercase tracking-[0.3em] text-[10px] font-bold mb-4 block">Formación Avanzada</span>
+            <h2 className="text-5xl md:text-6xl font-serif leading-tight">
+              IA para la <br /><span className="italic gold-gradient">Excelencia Empresarial</span>
+            </h2>
+          </div>
+          <div className="lg:w-1/3">
+            <p className="text-beige/60 font-light leading-relaxed">
+              Descubre cómo la integración de la IA en los flujos de trabajo administrativos y creativos está transformando la competitividad de las empresas modernas.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {mediaItems.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.2 }}
+              className="group relative overflow-hidden rounded-[40px] aspect-[4/5]"
+            >
+              <img 
+                src={item.image} 
+                alt={item.title} 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+              <div className="absolute bottom-0 left-0 p-10 w-full">
+                <div className="w-12 h-12 rounded-2xl bg-gold/20 flex items-center justify-center text-gold mb-4 backdrop-blur-md">
+                  <item.icon className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-serif mb-2">{item.title}</h3>
+                <p className="text-sm opacity-60 font-light group-hover:opacity-100 transition-opacity">
+                  {item.description}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -263,8 +350,14 @@ const Services = () => {
 };
 
 const About = () => {
+  const socialLinks = [
+    { icon: Instagram, url: "https://www.instagram.com/Amaya.con_IA/", label: "Amaya.con_IA" },
+    { icon: Facebook, url: "https://www.facebook.com/amayachirino", label: "Amaya chirino" },
+    { icon: Github, url: "https://github.com/amayachirino369-ux/Yamilet-Chirino-Amaya", label: "Yamilet-Chirino-Amaya" }
+  ];
+
   return (
-    <section id="sobre-mí" className="py-32 bg-paper">
+    <section id="sobre-mi" className="py-32 bg-paper">
       <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-20">
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
@@ -274,10 +367,14 @@ const About = () => {
         >
           <div className="aspect-[4/5] overflow-hidden oval-mask shadow-2xl relative z-10 border-8 border-white">
             <img 
-              src="https://picsum.photos/seed/yamilet-amaya/800/1000" 
+              src="/profile.jpg" 
               alt="Yamilet Chirino Amaya" 
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1974&auto=format&fit=crop";
+              }}
             />
           </div>
           <div className="absolute -top-10 -right-10 w-64 h-64 border border-gold/20 rounded-full z-0 animate-pulse"></div>
@@ -294,7 +391,7 @@ const About = () => {
               </div>
               <span className="text-[10px] font-bold text-gold">+500</span>
             </div>
-            <p className="text-[10px] uppercase tracking-widest font-bold leading-tight">Profesionales Transformados</p>
+            <p className="text-[10px] uppercase tracking-widest font-bold leading-tight">Mentes Transformadas</p>
           </div>
         </motion.div>
 
@@ -305,43 +402,51 @@ const About = () => {
           className="w-full lg:w-1/2"
         >
           <span className="text-gold uppercase tracking-[0.3em] text-[10px] font-bold mb-4 block">La Mente Detrás</span>
-          <h2 className="text-5xl font-serif mb-8 leading-tight">Yamilet Chirino Amaya: <br /><span className="italic font-light">Tu Guía en la IA</span></h2>
-          <div className="space-y-6 text-ink/70 font-light leading-relaxed">
+          <h2 className="text-5xl font-serif mb-8 leading-tight">Yamilet Chirino Amaya: <br /><span className="italic font-light">Tu Mentora en IA</span></h2>
+          <div className="space-y-6 text-ink/70 font-light leading-relaxed text-lg">
             <p>
-              Como consultora y formadora especializada, mi misión es democratizar el acceso a la Inteligencia Artificial, 
-              ayudando a profesionales y empresas a aprovechar todo el potencial del ecosistema tecnológico actual.
+              Soy una apasionada de la tecnología y la docencia, dedicada a empoderar a profesionales a través del dominio práctico de la Inteligencia Artificial.
             </p>
             <p>
-              Mi enfoque no se limita a la técnica; busco la integración armónica de la IA en los procesos creativos y de negocio, 
-              manteniendo siempre un estándar de excelencia y elegancia.
+              Mi enfoque une la eficiencia administrativa con la creatividad digital, permitiéndote no solo usar IA, sino transformar radicalmente tu forma de trabajar. 
+              Especialista en optimización de flujos con IA y estrategias de contenido automáticas.
             </p>
+            
             <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
-                "Formación Corporativa",
-                "Consultoría Estratégica",
+                "Eficiencia Administrativa",
                 "Ingeniería de Prompts",
-                "Automatización con IA"
+                "Contenido para Redes",
+                "Optimización de Procesos"
               ].map(item => (
                 <div key={item} className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-gold" />
+                  <CheckCircle2 className="w-4 h-4 text-gold" />
                   <span className="text-sm font-medium">{item}</span>
                 </div>
               ))}
             </div>
           </div>
           
-          <div className="mt-12 flex flex-wrap gap-6">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center text-gold">
-                <Phone className="w-4 h-4" />
-              </div>
-              <span className="text-sm font-bold tracking-wider">604 266 708</span>
-            </div>
+          <div className="mt-12 flex flex-col gap-6">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center text-gold">
                 <Mail className="w-4 h-4" />
               </div>
               <span className="text-sm font-bold tracking-wider">amayachirino369@gmail.com</span>
+            </div>
+            <div className="flex flex-wrap gap-4">
+              {socialLinks.map(({ icon: Icon, url, label }) => (
+                <a 
+                  key={label}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 rounded-full border border-gold/20 text-ink/60 hover:border-gold hover:text-gold transition-all duration-300"
+                >
+                  <Icon className="w-4 h-4" />
+                  <span className="text-[10px] uppercase font-bold tracking-widest">{label.split('/').pop()}</span>
+                </a>
+              ))}
             </div>
           </div>
         </motion.div>
@@ -398,8 +503,18 @@ const Contact = () => {
             </div>
 
             <div className="mt-12 flex gap-4">
-              {[Instagram, Linkedin].map((Icon, i) => (
-                <a key={i} href="#" className="w-12 h-12 rounded-full border border-gold/20 flex items-center justify-center text-gold hover:gold-bg-gradient hover:text-white transition-all duration-300">
+              {[
+                { Icon: Instagram, url: "https://www.instagram.com/Amaya.con_IA/" },
+                { Icon: Facebook, url: "https://www.facebook.com/amayachirino" },
+                { Icon: Github, url: "https://github.com/amayachirino369-ux/Yamilet-Chirino-Amaya" }
+              ].map(({ Icon, url }, i) => (
+                <a 
+                  key={i} 
+                  href={url} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 rounded-full border border-gold/20 flex items-center justify-center text-gold hover:gold-bg-gradient hover:text-white transition-all duration-300"
+                >
                   <Icon className="w-5 h-5" />
                 </a>
               ))}
@@ -473,9 +588,18 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 rounded-full gold-bg-gradient flex items-center justify-center">
-                <Sparkles className="text-white w-4 h-4" />
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-full overflow-hidden border border-gold/30">
+                <img 
+                  src="/logo.png" 
+                  alt="Footer Logo" 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = "https://images.unsplash.com/photo-1620712943543-bcc4628c6bb5?q=80&w=100&h=100&auto=format&fit=crop";
+                  }}
+                />
               </div>
               <span className="font-serif text-xl font-semibold tracking-tight">Amaya <span className="text-gold">Con IA</span></span>
             </div>
@@ -505,8 +629,9 @@ const Footer = () => {
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-widest opacity-40 font-bold">
           <p>© 2026 Amaya Con IA. Yamilet Chirino Amaya.</p>
           <div className="flex gap-8">
-            <a href="#" className="hover:text-gold transition-colors">LinkedIn</a>
-            <a href="#" className="hover:text-gold transition-colors">Instagram</a>
+            <a href="https://www.instagram.com/Amaya.con_IA/" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors">Instagram</a>
+            <a href="https://www.facebook.com/amayachirino" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors">Facebook</a>
+            <a href="https://github.com/amayachirino369-ux/Yamilet-Chirino-Amaya" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors">GitHub</a>
           </div>
         </div>
       </div>
@@ -520,6 +645,7 @@ export default function App() {
       <Navbar />
       <Hero />
       <Services />
+      <AIVideoShowcase />
       <About />
       <Contact />
       <Footer />
